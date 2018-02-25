@@ -25,9 +25,9 @@ $ curl localhost:5000/mine
 ### New Transaction
 ```
 $ curl -X POST -H "Content-Type: application/json" -d '{
-"sender": "d4ee26eee15148ee92c6cd394edd974e",
-"recipient": "someone-other-address",
-"amount": 5
+"sender": "66ad49fc75114203-8db2c886c13339ea",
+"recipient": "98c438146f674768a1bb0e225a75311f",
+"amount": 50
 }' localhost:5000/transactions/new
 ```
 
