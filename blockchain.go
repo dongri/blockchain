@@ -66,7 +66,6 @@ func (bc *Blockchain) registerNode(address string) {
 	bc.Nodes = append(bc.Nodes, host)
 }
 
-// Finish
 func (bc *Blockchain) validChain(chain []Block) bool {
 	lastBlock := chain[0]
 	currentIndex := 1
@@ -89,7 +88,6 @@ type chainResponse struct {
 	Chain  []Block `json:"chain"`
 }
 
-// Finish
 func (bc *Blockchain) resolveConflicts() bool {
 	var newChain []Block
 	neighbours := bc.Nodes
@@ -123,7 +121,6 @@ func (bc *Blockchain) resolveConflicts() bool {
 
 }
 
-// Finish
 func (bc *Blockchain) newBlock(proof uint64, previousHash string) Block {
 	block := Block{
 		Index:        uint64(len(bc.Chain) + 1),
@@ -137,7 +134,6 @@ func (bc *Blockchain) newBlock(proof uint64, previousHash string) Block {
 	return block
 }
 
-// Finish
 func (bc *Blockchain) newTransaction(sender, recipient string, amount uint64) uint64 {
 	transaction := Transaction{
 		Sender:    sender,
@@ -148,7 +144,6 @@ func (bc *Blockchain) newTransaction(sender, recipient string, amount uint64) ui
 	return bc.lastBlock().Index + 1
 }
 
-// Finish
 func (bc *Blockchain) proofOfWork(lastBlock Block) uint64 {
 	lastProof := lastBlock.Proof
 	lastHash := hash(lastBlock)
@@ -159,19 +154,16 @@ func (bc *Blockchain) proofOfWork(lastBlock Block) uint64 {
 	return proof
 }
 
-// Finish
 func (bc *Blockchain) lastBlock() Block {
 	return bc.Chain[len(bc.Chain)-1]
 }
 
-// Finish
 func hash(block Block) string {
 	jsonBytes, _ := json.Marshal(block)
 	hashBytes := sha256.Sum256(jsonBytes)
 	return hex.EncodeToString(hashBytes[:])
 }
 
-// Finish
 func validProof(lastProof, proof uint64, lastHash string) bool {
 	guess := fmt.Sprintf("%x%x%x", lastProof, proof, lastHash)
 	guessBytes := sha256.Sum256([]byte(guess))
