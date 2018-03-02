@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 	"os/exec"
 	"strconv"
 	"strings"
@@ -313,15 +314,19 @@ var bc *Blockchain
 var nodeIdentifier string
 
 func main() {
+	args := os.Args
+	port := "5000"
+	if len(args) > 2 && args[1] == "-p" {
+		port = args[2]
+	}
 	bc = NewBlockchain()
 	out, _ := exec.Command("uuidgen").Output()
 	nodeIdentifier = strings.Replace(string(out), "-", "", -1)
-	port := "5000"
 	http.HandleFunc("/mine", mineHandler)
 	http.HandleFunc("/transactions/new", newTransactionHandler)
 	http.HandleFunc("/chain", chainHandler)
 	http.HandleFunc("/nodes/register", nodesRegisterHandler)
 	http.HandleFunc("/nodes/resolve", nodesResolveHandler)
-	log.Printf("Server listening on localhost:%s.\n", port)
+	log.Printf("Server listening on localhost:%s\n", port)
 	http.ListenAndServe(fmt.Sprintf(":%s", port), nil)
 }

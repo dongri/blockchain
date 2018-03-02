@@ -42,3 +42,18 @@ $ curl -X POST -H "Content-Type: application/json" -d '{
 ```
 $ curl localhost:5000/nodes/resolve 
 ```
+
+# To add more instances
+```
+$ go run blockchain.go -p 5001
+$ go run blockchain.go -p 5002
+$ go run blockchain.go -p 5003
+```
+
+### Docker
+```
+$ docker build -t blockchain .
+$ docker run --rm -p 9000:5000 blockchain
+$ docker run --rm -p 9001:5000 blockchain
+$ docker run --rm -p 9002:5000 blockchain
+```
